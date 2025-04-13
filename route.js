@@ -149,6 +149,7 @@ searchRoute(mantelas, from, to, cost, init = '', output = undefined)
 			const minimalCost = minimal.get(elem.identifier) || Infinity;
 			if (cost(elem.number) >= minimalCost || !e.prefix)
 				return;
+			minimal.set(elem.identifier, cost(elem.number));
 
 			const array = queue.get(cost(elem.number)) || [];
 			array.push(elem);
