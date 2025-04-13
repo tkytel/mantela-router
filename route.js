@@ -86,7 +86,6 @@ updateTerminals(e)
 	clone.append(option);
 
 	const mantela = mantelas.get(pbxTo.value);
-	console.debug(mantela);
 	if (!mantela)
 		return;
 	mantela.extensions.forEach(e => {
