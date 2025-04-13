@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mantela Router</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+<link rel="stylesheet" href="./mantela.css">
+<script src="./route.js" defer></script>
+</head>
+<body>
+<header>
+<h1>Mantela Router</h1>
+<p>
+Mantela によって記述された VoIP 電話網の電話番号を検索します。
+</p>
+</header>
+<section>
+<h2>最初の Mantela を指定</h2>
+<p>
+VoIP 電話網の起点となる Mantela を指定してください。
+</p>
+<form id="formMantela">
+<fieldset>
+<legend>初期設定</legend>
+<div>
+<label for="urlMantela">mantela.json の URL:</label>
+<input type="url" id="urlMantela" name="first" required class="fill-inline">
+</div>
+<hr>
+<div>
+<input type="submit" id="btnLoad" value="Mantela を読み込み" class="fill-inline">
+</div>
+<div>
+<output id="outputMantela">mantela.json の URL を入力して「Mantela を読み込み」を押下してください</output>
+</div>
+</fieldset>
+</form>
+</section>
+<section>
+<h2>電話番号を検索</h2>
+<form id="formRouter">
+<fieldset>
+<legend>電話番号検索</legend>
+<div>
+<label for="pbxFrom">発信元の交換局</label>
+<select id="pbxFrom" name="pbxFrom" required class="fill-inline">
+<option value="">---</option>
+</select>
+</div>
+<div>
+<label for="callBy">利用する端末</label>
+<select id="callBy" name="callBy" required class="fill-inline">
+<option value="">---</option>
+<option value="pb">押しボタン電話機</option>
+<option value="dp20">ダイヤル電話機（20 pps）</option>
+<option value="dp10">ダイヤル電話機（10 pps）</option>
+</select>
+</div>
+<div>
+<label for="pbxTo">発信先の交換局</label>
+<select id="pbxTo" name="pbxTo" required class="fill-inline">
+<option value="">---</option>
+</select>
+</div>
+<div>
+<label for="terminalTo">発信先の端末</label>
+<select id="terminalTo" name="terminalTo" required class="fill-inline">
+<option value="">---</option>
+</select>
+</div>
+<hr>
+<div>
+<input type="submit" id="btnSearch" value="電話番号を検索" class="fill-inline">
+</div>
+<div>
+<output id="outputSearch">発信元と発信先とを指定してら「電話番号を検索」を押下してください</output>
+</div>
+</fieldset>
+</form>
+</section>
+</body>
+</html>
