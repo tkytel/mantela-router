@@ -125,12 +125,12 @@ searchRoute(mantelas, from, to, cost, init = '', output = undefined)
 		if (queue.get(min).length === 0)
 			queue.delete(min);
 
+		const mantela = mantelas.get(current.identifier);
+		if (!mantela || mantela.aboutMe.unavailable)
+			continue;
+
 		if (current.identifier === to)
 			return current.number;
-
-		const mantela = mantelas.get(current.identifier);
-		if (!mantela)
-			continue;
 
 		updateStatus(current.number);
 		await new Promise(r => setTimeout(r));
