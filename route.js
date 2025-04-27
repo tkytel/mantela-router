@@ -147,7 +147,7 @@ searchRoute(mantelas, from, to, cost, init = '', output = undefined)
 			};
 
 			const minimalCost = minimal.get(elem.identifier) || Infinity;
-			if (cost(elem.number) >= minimalCost || !e.prefix)
+			if (cost(elem.number) >= minimalCost || !e.prefix || e.unavailable)
 				return;
 			minimal.set(elem.identifier, cost(elem.number));
 
