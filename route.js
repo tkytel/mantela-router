@@ -3,62 +3,15 @@
 let mantelas;
 
 async function
-generateMantelas(firstMantela, output = undefined)
-{
-	function
-	updateStatus(msg)
-	{
-		if (output)
-			output.textContent = msg;
-	}
-
-	const start = performance.now();
-
-	const mantelas = new Map();
-
-	const queue = [ firstMantela ];
-	const visited = new Set();
-
-	while (queue.length > 0) {
-		const url = queue.shift();
-		if (visited.has(url))
-			continue;
-
-		updateStatus(url);
-		const mantela = await fetch(url, { mode: 'cors' })
-				.then(res => res.json())
-				.catch(err => new Error(err));
-		if (mantela instanceof Error)
-			continue;
-		visited.add(url);
-
-		if (!('aboutMe' in mantela))
-			continue;
-		mantelas.set(mantela.aboutMe.identifier, mantela);
-
-		if (visited.has(mantela.aboutMe.identifier))
-			continue;
-		visited.add(mantela.aboutMe.identifier);
-
-		mantela.providers.forEach(e => {
-			if (e.mantela)
-				queue.push(e.mantela);
-		});
-	}
-
-	const finish = performance.now()
-
-	updateStatus(`Done.  (${finish-start} ms)`);
-	return mantelas;
-}
-
-async function
 loadMantela(e)
 {
 	e.preventDefault();
 
 	btnLoad.disabled = true;
-	mantelas = await generateMantelas(urlMantela.value, outputMantela);
+	const start = performance.now();
+	mantelas = await fetchMantelas(urlMantela.value);
+	const end = performance.now();
+	outputMantela.textContent = `Fetched ${mantelas.size} Mantelas (${end-start|0} ms)`;
 	btnLoad.disabled = false;
 
 	mantelas.forEach(e => {
