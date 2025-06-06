@@ -45,13 +45,15 @@ loadMantela(e)
 	});
 	summaryError.textContent = `エラー情報（${errors.length} 件）`;
 
-	mantelas.forEach(e => {
+	mantelas.forEach(v => {
+		const e = v.mantela;
 		const option = document.createElement('option');
 		option.value = e.aboutMe.identifier;
 		option.textContent = `${e.aboutMe.name} (${e.aboutMe.identifier})`;
 		pbxFrom.append(option);
 	});
-	mantelas.forEach(e => {
+	mantelas.forEach(v => {
+		const e = v.mantela;
 		const option = document.createElement('option');
 		option.value = e.aboutMe.identifier;
 		option.textContent = `${e.aboutMe.name} (${e.aboutMe.identifier})`;
@@ -69,7 +71,7 @@ updateTerminals(e)
 	option.textContent = '---';
 	clone.append(option);
 
-	const mantela = mantelas.get(pbxTo.value);
+	const mantela = mantelas.get(pbxTo.value)?.mantela;
 	if (!mantela)
 		return;
 	mantela.extensions.forEach(e => {
@@ -109,7 +111,7 @@ searchRoute(mantelas, from, to, cost, init = '', output = undefined)
 		if (queue.get(min).length === 0)
 			queue.delete(min);
 
-		const mantela = mantelas.get(current.identifier);
+		const mantela = mantelas.get(current.identifier)?.mantela;
 		if (!mantela || mantela.aboutMe.unavailable)
 			continue;
 
