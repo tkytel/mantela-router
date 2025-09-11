@@ -50,6 +50,7 @@ loadMantela(e)
 		const option = document.createElement('option');
 		option.value = e.aboutMe.identifier;
 		option.textContent = `${e.aboutMe.name} (${e.aboutMe.identifier})`;
+		option.disabled = e.aboutMe.unavailable;
 		pbxFrom.append(option);
 	});
 	mantelas.forEach(v => {
@@ -57,6 +58,7 @@ loadMantela(e)
 		const option = document.createElement('option');
 		option.value = e.aboutMe.identifier;
 		option.textContent = `${e.aboutMe.name} (${e.aboutMe.identifier})`;
+		option.disabled = e.aboutMe.unavailable;
 		pbxTo.append(option);
 	});
 }
@@ -78,6 +80,7 @@ updateTerminals(e)
 		const option = document.createElement('option');
 		option.value = e.extension;
 		option.textContent = `${e.name} (${e.extension})`;
+		option.disabled = e.unavailable;
 		clone.append(option);
 	});
 }
