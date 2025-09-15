@@ -9,7 +9,14 @@ loadMantela(e)
 
 	btnLoad.disabled = true;
 	const start = performance.now();
-	const results = await fetchMantelas3(urlMantela.value);
+	const options = {};
+	if (checkNest.checked)
+		Object.assign(options, { maxDepth: +numNest.value });
+	if (checkTimeout.checked)
+		Object.assign(options, { fetchTimeoutMs: +numTimeout.value });
+	if (checkNoCache.checked)
+		Object.assign(options, { cache: 'no-cache' });
+	const results = await fetchMantelas3(urlMantela.value, options);
 	mantelas = results.mantelas;
 	const errors = results.errors;
 	const end = performance.now();
