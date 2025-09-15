@@ -97,6 +97,7 @@ const costs = {
 	pb: n => 120 * n.length,
 	dp10: n => 600 * n.length + [...n].reduce((c, e) => c + 100 * ((+e+9) % 10 + 1), 0),
 	dp20: n => 450 * n.length + [...n].reduce((c, e) => c + 50 * ((+e+9) % 10 + 1), 0),
+	random: n => Math.random(),
 };
 
 async function
