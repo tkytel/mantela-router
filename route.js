@@ -191,6 +191,10 @@ closePopupAndPostMessage()
 	}
 	window.opener.postMessage(
 		{
+			pbxFrom: pbxFrom.value,
+			callBy: callBy.value,
+			pbxTo: pbxTo.value,
+			terminalTo: terminalTo.value,
 			phoneNumber: phoneNumber
 		},
 		window.location.origin
