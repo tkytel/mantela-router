@@ -1,6 +1,8 @@
 'use strict';
 
 let mantelas;
+let phoneNumber;
+let isPopup;
 
 async function
 loadMantela(e)
@@ -112,7 +114,6 @@ searchRoute(mantelas, from, to, cost, init = '', output = undefined)
 
 	const minimal = new Map();
 	minimal.set(from, cost(init));
-
 	const queue = new Map();
 	queue.set(cost(init), [ { number: init, identifier: from, first: true } ]);
 
@@ -170,15 +171,41 @@ calculateRoute(e)
 	const route = await searchRoute(mantelas, from, to, cost, '', outputSearch);
 	btnSearch.disabled = false;
 
-	if (route === null)
+	if (route === null) {
+		phoneNumber = null;
 		outputSearch.textContent = 'No route found.';
-	else
-		outputSearch.textContent = 'Found: ' + route + terminalTo.value;
+	} else {
+		phoneNumber = route + terminalTo.value;
+		outputSearch.textContent = 'Found: ' + phoneNumber;
+		if (isPopup) btnClose.style.visibility = 'visible';
+	}
 }
 formRouter.addEventListener('submit', calculateRoute);
+
+async function
+closePopupAndPostMessage()
+{
+	if (!window.opener || window.opener.closed) {
+		console.error('parent window is not found');
+		return;
+	}
+	window.opener.postMessage(
+		{
+			phoneNumber: phoneNumber
+		},
+		window.location.origin
+	);
+	window.close();
+}
+btnClose.addEventListener('click', closePopupAndPostMessage);
 
 const urlSearch = new URLSearchParams(document.location.search);
 if (urlSearch.get('first')) {
 	urlMantela.value = urlSearch.get('first');
 	btnLoad.click();
 }
+if (urlSearch.get('popup') == 'true') {
+	isPopup = true;
+}
+
+btnClose.style.visibility = 'hidden';
